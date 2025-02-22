@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
-from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -63,7 +63,6 @@ class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
         required=True, validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    name = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     email = serializers.EmailField(
         required=False,
         allow_blank=True,
@@ -73,7 +72,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "name", "email", "username", "password")
+        fields = ("id", "email", "username", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -90,21 +89,6 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(
         style={"input_type": "password"},
         trim_whitespace=False,
+        min_length=8,
+        max_length=64,
     )
-
-    def validate(self, data):
-        username = data.get("username")
-        password = data.get("password")
-
-        if username and password:
-            user = authenticate(username=username, password=password)
-            print(user, username, password, "user")
-            if not user:
-                msg = "Unable to log in with provided credentials."
-                raise serializers.ValidationError(msg)
-        else:
-            msg = "Must include 'username' and 'password'."
-            raise serializers.ValidationError(msg)
-
-        data["user"] = user
-        return data

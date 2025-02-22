@@ -1,79 +1,81 @@
 from django.db import models
-from django.contrib.auth.models import (
-    BaseUserManager,
-    AbstractBaseUser,
-    PermissionsMixin,
-)
+from django.contrib.auth.models import User
+
+# (
+#     BaseUserManager,
+#     AbstractBaseUser,
+#     PermissionsMixin,
+# )
 
 
-class UserManager(BaseUserManager):
-    """
-    Custom User Manager for creating users with email as the unique identifier
-    """
+# class UserManager(BaseUserManager):
+#     """
+#     Custom User Manager for creating users with email as the unique identifier
+#     """
 
-    def create_user(self, username, email=None, password=None, **extra_fields):
-        """
-        Create and return a regular user with an email, username, and password
-        """
-        if not username:
-            raise ValueError("The Username field must be set")
+#     def create_user(self, username, email=None, password=None, **extra_fields):
+#         """
+#         Create and return a regular user with an email, username, and password
+#         """
+#         if not username:
+#             raise ValueError("The Username field must be set")
 
-        email = self.normalize_email(email) if email else None
-        extra_fields.setdefault("is_active", True)
+#         email = self.normalize_email(email) if email else None
+#         extra_fields.setdefault("is_active", True)
 
-        user = self.model(username=username, email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+#         user = self.model(username=username, email=email, **extra_fields)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
 
-    def create_superuser(self, username, email, password=None, **extra_fields):
-        """
-        Create and return a superuser with username, email, and password
-        """
-        extra_fields.setdefault("is_staff", True)
-        extra_fields.setdefault("is_superuser", True)
+#     def create_superuser(self, username, email, password=None, **extra_fields):
+#         """
+#         Create and return a superuser with username, email, and password
+#         """
+#         extra_fields.setdefault("is_staff", True)
+#         extra_fields.setdefault("is_superuser", True)
 
-        if extra_fields.get("is_staff") is not True:
-            raise ValueError("Superuser must have is_staff=True.")
-        if extra_fields.get("is_superuser") is not True:
-            raise ValueError("Superuser must have is_superuser=True.")
+#         if extra_fields.get("is_staff") is not True:
+#             raise ValueError("Superuser must have is_staff=True.")
+#         if extra_fields.get("is_superuser") is not True:
+#             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(
-            username=username, email=email, password=password, **extra_fields
-        )
+#         return self.create_user(
+#             username=username, email=email, password=password, **extra_fields
+#         )
 
 
-class User(AbstractBaseUser, PermissionsMixin):
-    """
-    Custom User Model for authentication and Vicharak management
-    """
+# class User(AbstractBaseUser, PermissionsMixin):
+#     """
+#     Custom User Model for authentication and Vicharak management
+#     """
 
-    name = models.CharField(max_length=50, blank=True, null=True)
-    email = models.EmailField(max_length=50, unique=True, blank=True, null=True)
-    username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=128)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    last_login = models.DateTimeField(null=True, blank=True)
+#     name = models.CharField(max_length=50, blank=True, null=True)
+#     email = models.EmailField(max_length=50, unique=True, blank=True, null=True)
+#     username = models.CharField(max_length=50, unique=True)
+#     password = models.CharField(max_length=128)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     last_login = models.DateTimeField(null=True, blank=True)
 
-    is_active = models.BooleanField(default=True)  # Required by Django auth
-    is_staff = models.BooleanField(default=True)  # Admin site access
+#     is_active = models.BooleanField(default=True)  # Required by Django auth
+#     is_staff = models.BooleanField(default=True)  # Admin site access
 
-    # Avoid conflicts with Django's built-in User model
-    groups = models.ManyToManyField(
-        "auth.Group", related_name="vicharak_users", blank=True
-    )
-    user_permissions = models.ManyToManyField(
-        "auth.Permission", related_name="vicharak_users_permissions", blank=True
-    )
+#     # Avoid conflicts with Django's built-in User model
+#     groups = models.ManyToManyField(
+#         "auth.Group", related_name="vicharak_users", blank=True
+#     )
+#     user_permissions = models.ManyToManyField(
+#         "auth.Permission", related_name="vicharak_users_permissions", blank=True
+#     )
 
-    objects = UserManager()
+#     objects = UserManager()
 
-    USERNAME_FIELD = "username"  # Used for authentication
-    REQUIRED_FIELDS = ["email"]  # Email is required for superusers
+#     USERNAME_FIELD = "username"  # Used for authentication
+#     REQUIRED_FIELDS = ["email"]  # Email is required for superusers
 
-    def __str__(self):
-        return self.username
+#     def __str__(self):
+#         return self.username
 
 
 class Vichar(models.Model):
