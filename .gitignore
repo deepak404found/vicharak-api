@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / package files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+*.env
+*.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django-related
+db.sqlite3
+*.sqlite3
+/media/
+staticfiles/
+*.log
+*.pot
+local_settings.py
+instance/
+.venv/
+.env
+/config/settings/local.py
+
+# Migrations (keep __init__.py but ignore others)
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Ignore JWT & authentication tokens
+jwt_secret.json
+access_tokens.json
+refresh_tokens.json
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS system files
+.DS_Store
+Thumbs.db
