@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # (
 #     BaseUserManager,
@@ -88,7 +89,7 @@ class Vichar(models.Model):
 
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_vichar")
     title = models.CharField(max_length=50)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -115,14 +116,21 @@ class Role(models.Model):
 
     - Role can have multiple permissions
     - Role can be assigned to collaborators
+
     """
 
     name = models.CharField(max_length=50)
-    permissions = models.JSONField(default=list)
+    permissions = models.JSONField(
+        default=list, help_text="List of permissions for the role."
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.permissions = list(set(self.permissions))
+        super(Role, self).save(*args, **kwargs)
 
 
 class Collaborator(models.Model):
@@ -136,13 +144,17 @@ class Collaborator(models.Model):
 
     """
 
-    vichar = models.ForeignKey(Vichar, on_delete=models.CASCADE, related_name="vichar")
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
+    vichar = models.ForeignKey(
+        Vichar, on_delete=models.CASCADE, related_name="collaborators"
+    )
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="owned_vichars"
+    )
     collaborator = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="collaborator"
+        User, on_delete=models.CASCADE, related_name="collaborations"
     )
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.vichar.title + " - " + self.user.name
+        return f"{self.vichar.title} - {self.collaborator.username}"

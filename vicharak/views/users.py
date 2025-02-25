@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializers import (
+from vicharak.serializers.users import (
     LoginSerializer,
     RegisterSerializer,
     UserSerializer,
@@ -27,6 +27,7 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
 
 
+# login view
 class LoginView(APIView):
     """
     Login View for authenticating a user and generating a token.
@@ -60,6 +61,7 @@ class LoginView(APIView):
         )
 
 
+# list all users view
 class ListUsersView(generics.ListAPIView):
     """
     List Users View for getting a list of all users.
@@ -72,6 +74,7 @@ class ListUsersView(generics.ListAPIView):
     serializer_class = UserSerializer
 
 
+# user view for CRUD operations on current user
 class UserView(generics.RetrieveUpdateDestroyAPIView):
     """
     User View for getting and updating the current user.
@@ -98,6 +101,7 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
         )
 
 
+# update password view for updating the current user's password
 class UpdatePasswordView(APIView):
     """
     Reset Password View for updating the current user's password
