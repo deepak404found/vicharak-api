@@ -41,7 +41,7 @@ class RoleViewSet(
 
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     # Add search filter
     filter_backends = [filters.SearchFilter]
