@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+from django.conf import settings
+import os
+from dotenv import load_dotenv  # Optional: Only if using .env file
+
+# Load environment variables from a .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-)bv9%xp-m_=u$_&&u5kip_%g=c^ginsawc#8bteg#(bgz7b(2n"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 # Application definition
 
@@ -37,9 +43,37 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+
+EXTERNAL_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt",
     "vicharak",
 ]
+
+INSTALLED_APPS += EXTERNAL_APPS
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_RENDERER_CLASSES": (
+        ("rest_framework.renderers.JSONRenderer",)
+        if not settings.DEBUG
+        else (
+            "rest_framework.renderers.JSONRenderer",
+            "rest_framework.renderers.BrowsableAPIRenderer",
+        )
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),  # Change to desired duration
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Change as needed
+    "ROTATE_REFRESH_TOKENS": True,  # Optional: Issue new refresh token on refresh
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
