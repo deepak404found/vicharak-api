@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import users, roles
+from .views import users, roles, vichars
 from rest_framework_simplejwt.views import TokenRefreshView
 
 # Router for ViewSets
 router = DefaultRouter()
-# router.register(r'vichars', VicharViewSet, basename='vichars')
+router.register(r"vichars", vichars.VicharViewSet, basename="vichars")
 # router.register(r'collaborators', CollaboratorViewSet, basename='collaborators')
 router.register(r"roles", roles.RoleViewSet, basename="roles")
 
