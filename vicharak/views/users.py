@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User, update_last_login
+from django.contrib.auth.models import update_last_login
+from vicharak.models import User
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
