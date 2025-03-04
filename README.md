@@ -111,8 +111,8 @@ Collaborators are users who are invited to work on a Vichar with a specific role
 
 | Action                  | Description                                         | Access Control                   |
 | ----------------------- | --------------------------------------------------- | -------------------------------- |
-| **Add Collaborator**    | Owner can add a user as a collaborator              | Owner                            |
-| **Update Collaborator** | Owner can update a collaborator’s role              | Owner                            |
+| **Add Collaborator**    | Owner can add a user as a collaborator              | Owner or authorized collaborator |
+| **Update Collaborator** | Owner can update a collaborator’s role              | Owner or authorized collaborator |
 | **Remove Collaborator** | Owner or user with `REMOVE_COLLABORATOR` permission | Owner or authorized collaborator |
 
 ---
