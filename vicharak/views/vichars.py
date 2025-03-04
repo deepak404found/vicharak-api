@@ -1,12 +1,13 @@
-from rest_framework import viewsets, mixins, filters, pagination
-from rest_framework.permissions import IsAuthenticated
-from vicharak.models import Vichar
-from vicharak.serializers.vichars import VicharSerializer
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.exceptions import PermissionDenied
+from rest_framework import filters, mixins, status, viewsets
 from rest_framework.decorators import action
-from vicharak.models import User
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+
+from vicharak.models import Vichar
+from vicharak.serializers.collaborators import CollaboratorSerializer
+from vicharak.serializers.vichars import AddCollaboratorSerializer, VicharSerializer
+from django.db.models import Q
 
 
 class VicharViewSet(
@@ -34,6 +35,56 @@ class VicharViewSet(
     filter_backends = [filters.SearchFilter]
     search_fields = ["title"]  # Enable searching by title
 
-    # get vichars only for the current user
+    # get current user's vichars and vichars where the current user is a collaborator
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
+        return Vichar.objects.filter(
+            Q(user=self.request.user) | Q(collaborators__collaborator=self.request.user)
+        ).distinct()
+
+    # update the vichar with PUT method; PATH is not working properly
+    def partial_update(self, request, *args, **kwargs):
+        vichar = self.get_object()
+        serializer = self.get_serializer(vichar, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        super().partial_update(request, *args, **kwargs)
+        return Response(serializer.data)
+
+    # action to add collaborators to a vichar
+    @action(detail=True, methods=["post"])
+    def add_collaborator(self, request, pk=None):
+        vichar = self.get_object()
+        serializer = AddCollaboratorSerializer(
+            data=request.data, context={"request": request}
+        )
+        if serializer.is_valid():
+            # add collaborator
+            collaborator = serializer.save(vichar=vichar)
+            return Response(
+                {
+                    "message": "Collaborator added successfully.",
+                    "data": CollaboratorSerializer(collaborator).data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # action to update collaborators of a vichar
+    @action(detail=True, methods=["put"])
+    def update_collaborator(self, request, pk=None):
+        vichar = self.get_object()
+        request.data["vichar"] = vichar.id
+        serializer = AddCollaboratorSerializer(
+            data=request.data, context={"request": request}
+        )
+
+        if serializer.is_valid():
+            # update collaborator
+            collaborator = serializer.update(serializer.validated_data)
+            return Response(
+                {
+                    "message": "Collaborator updated successfully.",
+                    "data": CollaboratorSerializer(collaborator).data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

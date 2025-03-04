@@ -80,8 +80,10 @@ class Collaborator(models.Model):
     collaborator = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="collaborations"
     )
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
+    role = models.ForeignKey(
+        Role, on_delete=models.SET_NULL, null=True, related_name="role"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.vichar.title} - {self.collaborator.username}"
+        return f"{self.owner.username} / {self.vichar.title} - {self.collaborator.username}"
