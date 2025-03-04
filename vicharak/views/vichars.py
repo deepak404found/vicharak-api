@@ -38,8 +38,20 @@ class VicharViewSet(
     # get current user's vichars and vichars where the current user is a collaborator
     def get_queryset(self):
         return Vichar.objects.filter(
-            Q(user=self.request.user) | Q(collaborators__collaborator=self.request.user)
+            (
+                Q(user=self.request.user)
+                | Q(collaborators__collaborator=self.request.user)
+            )
+            # and exclude deleted vichars
+            & Q(deleted_at=None)
         ).distinct()
+
+    # action to get deleted vichars
+    @action(detail=False, methods=["get"])
+    def list_deleted(self, request):
+        queryset = Vichar.objects.filter(deleted_at__isnull=False)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     # update the vichar with PUT method; PATH is not working properly
     def partial_update(self, request, *args, **kwargs):
@@ -48,6 +60,14 @@ class VicharViewSet(
         serializer.is_valid(raise_exception=True)
         super().partial_update(request, *args, **kwargs)
         return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(
+            {"message": "Vichar deleted successfully."},
+            status=status.HTTP_204_NO_CONTENT,
+        )
 
     # action to add collaborators to a vichar
     @action(detail=True, methods=["post"])

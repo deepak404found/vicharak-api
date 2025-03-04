@@ -64,6 +64,24 @@ class VicharSerializer(serializers.ModelSerializer):
             }
         )
 
+    def delete(self, instance):
+        is_owner = instance.user == self.context["request"].user
+        has_permission = self.validate_collaborator(
+            instance.id, self.context["request"].user.id, "DELETE_VICHAR"
+        )
+
+        # check if user is owner or has permission to delete the vichar
+        if is_owner or has_permission:
+            # print(instance)
+            instance.delete()
+            return instance
+
+        raise serializers.ValidationError(
+            {
+                "detail": "You do not have permission to delete this vichar.",
+            }
+        )
+
     def validate_collaborator(self, vicharId, collaborator, permission):
         """
         Validate if the collaborator has the required permission.

@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -25,6 +26,12 @@ class Vichar(models.Model):
 
     def __str__(self):
         return self.title
+
+    # on delete, set deleted_at to now
+    def delete(self, *args, **kwargs):
+        print("delete0")
+        self.deleted_at = timezone.now()
+        self.save()
 
 
 permissions = [
