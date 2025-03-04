@@ -2,6 +2,8 @@
 
 Vicharak is a collaborative platform that allows users to create, manage, and share thoughts or ideas (Vichars) while controlling access through a role-based permission system. It enables multiple users to collaborate on a Vichar with predefined roles and permissions.  
 
+#### Postman Collection: [Vicharak API](https://documenter.getpostman.com/view/17055995/2sAYdipVf5#6883accc-30b4-44a7-89de-287498e41a79)
+
 ---
 
 ## **📚 Entities**  
