@@ -168,3 +168,31 @@ class VicharViewSet(
                 status=status.HTTP_201_CREATED,
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # action to remove a collaborator from a vichar
+    @action(detail=True, methods=["delete"])
+    def remove_collaborator(self, request, pk=None):
+        vichar = self.get_object()
+        serializer = self.get_serializer(vichar)
+
+        is_owner = vichar.user == request.user
+        has_permission = serializer.validate_collaborator(
+            vichar.id, request.user.id, "REMOVE_COLLABORATOR"
+        )
+
+        # check permissions
+        if not is_owner and not has_permission:
+            return Response(
+                {"detail": "You do not have permission to remove collaborators."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        # get and delete the collaborator
+        collaborator = get_object_or_404(
+            vichar.collaborators.all(), collaborator=request.data.get("collaborator")
+        )
+        collaborator.delete()
+        return Response(
+            {"detail": "Collaborator removed successfully."},
+            status=status.HTTP_204_NO_CONTENT,
+        )

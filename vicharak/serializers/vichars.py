@@ -140,6 +140,20 @@ class AddCollaboratorSerializer(serializers.ModelSerializer):
         if validated_data["vichar"].user == validated_data["collaborator"]:
             raise serializers.ValidationError("Owner cannot be a collaborator.")
 
+        is_owner = validated_data["vichar"].user == self.context["request"].user
+        v_serializer = VicharSerializer(validated_data["vichar"], context=self.context)
+        has_permission = v_serializer.validate_collaborator(
+            validated_data["vichar"].id,
+            self.context["request"].user.id,
+            "ADD_COLLABORATOR",
+        )
+
+        # raise an error if user is not owner and does not have permission
+        if not is_owner and not has_permission:
+            raise serializers.ValidationError(
+                "You do not have permission to add collaborator."
+            )
+
         # check if collaborator already exists; if yes, raise an error
         collaborator = Collaborator.objects.filter(
             vichar=validated_data["vichar"], collaborator=validated_data["collaborator"]
@@ -179,4 +193,35 @@ class AddCollaboratorSerializer(serializers.ModelSerializer):
         # update the collaborator
         collaborator.role = validated_data["role"]
         collaborator.save()
+        return collaborator
+
+
+class RemoveCollaboratorSerializer(serializers.ModelSerializer):
+    collaborator = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        required=True,
+        write_only=True,
+        help_text="Collaborator ID",
+    )
+
+    class Meta:
+        model = Collaborator
+        fields = ["vichar", "collaborator"]
+        read_only_fields = ("id", "owner")
+
+    def delete(self, validated_data):
+        """
+        Delete the collaborator.
+        """
+
+        # try to get the collaborator first
+        try:
+            collaborator = Collaborator.objects.get(
+                vichar=validated_data["vichar"],
+                collaborator=validated_data["collaborator"],
+            )
+        except Collaborator.DoesNotExist:
+            raise Http404("Collaborator does not exist.")
+
+        collaborator.delete()
         return collaborator
