@@ -53,6 +53,34 @@ class VicharViewSet(
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+    # action to restore a deleted vichar
+    @action(detail=True, methods=["post"])
+    def restore(self, request, pk=None):
+        # try to get the vichar
+        vichar = Vichar.objects.filter(id=pk, deleted_at__isnull=False).first()
+        if vichar is None:
+            return Response(
+                {"detail": "Vichar not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        serializer = self.get_serializer(vichar)
+
+        is_owner = vichar.user == request.user
+        has_permission = serializer.validate_collaborator(
+            vichar.id, request.user.id, "DELETE_VICHAR"
+        )  # if user has permission to delete the vichar then they can restore it
+
+        # check if user is owner or has permission to delete the vichar
+        if not is_owner and not has_permission:
+            return Response(
+                {"detail": "You do not have permission to restore this vichar."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        vichar.deleted_at = None
+        vichar.save()
+        return Response(serializer.data)
+
     # update the vichar with PUT method; PATH is not working properly
     def partial_update(self, request, *args, **kwargs):
         vichar = self.get_object()
@@ -64,8 +92,40 @@ class VicharViewSet(
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
+        serializer.delete(instance)
         return Response(
-            {"message": "Vichar deleted successfully."},
+            {"detail": "Vichar deleted successfully."},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+    # permanently delete the vichar
+    @action(detail=True, methods=["delete"])
+    def delete_permanently(self, request, pk=None):
+        # check if vichar has been deleted(soft delete)
+        vichar = Vichar.objects.filter(pk=pk, deleted_at__isnull=False).first()
+        if vichar is None:
+            return Response(
+                {"detail": "Vichar not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = self.get_serializer(vichar)
+
+        is_owner = vichar.user == request.user
+        has_permission = serializer.validate_collaborator(
+            vichar.id, request.user.id, "DELETE_VICHAR"
+        )
+
+        # check if user is owner or has permission to delete the vichar
+        if not is_owner and not has_permission:
+            return Response(
+                {"detail": "You do not have permission to delete this vichar."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        vichar.delete(permanent=True)
+        return Response(
+            {"detail": "Vichar deleted permanently."},
             status=status.HTTP_204_NO_CONTENT,
         )
 
@@ -81,7 +141,7 @@ class VicharViewSet(
             collaborator = serializer.save(vichar=vichar)
             return Response(
                 {
-                    "message": "Collaborator added successfully.",
+                    "detail": "Collaborator added successfully.",
                     "data": CollaboratorSerializer(collaborator).data,
                 },
                 status=status.HTTP_201_CREATED,
@@ -102,7 +162,7 @@ class VicharViewSet(
             collaborator = serializer.update(serializer.validated_data)
             return Response(
                 {
-                    "message": "Collaborator updated successfully.",
+                    "detail": "Collaborator updated successfully.",
                     "data": CollaboratorSerializer(collaborator).data,
                 },
                 status=status.HTTP_201_CREATED,

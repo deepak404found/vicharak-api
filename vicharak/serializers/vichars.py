@@ -72,7 +72,6 @@ class VicharSerializer(serializers.ModelSerializer):
 
         # check if user is owner or has permission to delete the vichar
         if is_owner or has_permission:
-            # print(instance)
             instance.delete()
             return instance
 

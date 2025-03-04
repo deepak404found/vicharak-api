@@ -29,9 +29,13 @@ class Vichar(models.Model):
 
     # on delete, set deleted_at to now
     def delete(self, *args, **kwargs):
-        print("delete0")
-        self.deleted_at = timezone.now()
-        self.save()
+        # check if permanent delete
+        if kwargs.get("permanent"):
+            kwargs.pop("permanent")  # remove the permanent delete flag
+            super(Vichar, self).delete(*args, **kwargs)
+        else:
+            self.deleted_at = timezone.now()
+            self.save()
 
 
 permissions = [
