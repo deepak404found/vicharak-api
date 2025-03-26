@@ -1,13 +1,13 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
-from vicharak.models import User
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from vicharak.serializers.users import (
+from user.models import User
+from user.serializers import (
     LoginSerializer,
     RegisterSerializer,
     UserSerializer,

@@ -3,8 +3,11 @@ from django.db.models import Q
 from django.http import Http404
 from rest_framework import serializers
 
-from vicharak.models import Collaborator, Role, User, Vichar
-from vicharak.serializers.collaborators import CollaboratorSerializer
+from collaborator.models import Collaborator
+from collaborator.serializers import CollaboratorSerializer
+from role.models import Role
+from user.models import User
+from vichar.models import Vichar
 
 
 class VicharSerializer(serializers.ModelSerializer):

@@ -48,7 +48,10 @@ INSTALLED_APPS = [
 EXTERNAL_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
-    "vicharak",
+    "user",
+    "role",
+    "collaborator",
+    "vichar",
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
@@ -159,4 +162,4 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-AUTH_USER_MODEL = "vicharak.User"
+AUTH_USER_MODEL = "user.User"

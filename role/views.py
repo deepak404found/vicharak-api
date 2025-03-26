@@ -1,12 +1,12 @@
 from rest_framework import viewsets, mixins, filters, pagination
 from rest_framework.permissions import IsAuthenticated
-from vicharak.models import Role
-from vicharak.serializers.roles import RoleSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.decorators import action
-from vicharak.models import User
+from user.models import User
+from role.models import Role
+from role.serializers import RoleSerializer
 
 
 class RolePagination(pagination.LimitOffsetPagination):

@@ -4,9 +4,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
-from vicharak.models import Vichar
-from vicharak.serializers.collaborators import CollaboratorSerializer
-from vicharak.serializers.vichars import AddCollaboratorSerializer, VicharSerializer
+from vichar.models import Vichar
+from collaborator.serializers import CollaboratorSerializer
+from vichar.serializers import AddCollaboratorSerializer, VicharSerializer
 from django.db.models import Q
 
 

@@ -1,6 +1,6 @@
 from rest_framework import serializers
-
-from vicharak.models import Collaborator, Role
+from collaborator.models import Collaborator
+from role.models import Role
 
 
 class CollaboratorSerializer(serializers.ModelSerializer):

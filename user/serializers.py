@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from vicharak.models import User
+from user.models import User
 from rest_framework.validators import UniqueValidator
 
 
