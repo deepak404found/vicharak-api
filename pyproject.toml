@@ -1,0 +1,34 @@
+[project]
+name = "vicharak"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "deepak404found",email = "deepakyadu404@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "asgiref (==3.8.1)",
+    "django (==5.1.6)",
+    "django-admin (==2.0.2)",
+    "django-excel-response2 (==3.0.6)",
+    "django-six (==1.0.5)",
+    "djangorestframework (==3.15.2)",
+    "djangorestframework-simplejwt (==5.4.0)",
+    "excel-base (==1.0.4)",
+    "isoweek (==1.3.3)",
+    "pyjwt (==2.10.1)",
+    "python-dateutil (==2.9.0.post0)",
+    "screen (==1.0.1)",
+    "six (==1.17.0)",
+    "sqlparse (==0.5.3)",
+    "timeconvert (==3.0.13)",
+    "tzlocal (==5.3)",
+    "xlwt (==1.3.0)",
+    "python-dotenv (>=1.1.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
