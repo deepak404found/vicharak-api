@@ -2,6 +2,8 @@
 
 Django Rest Framework (DRF) is an open-source framework for building Web APIs with Django. It provides robust tools for authentication, serialization, permissions, and views, making API development seamless and efficient. With a browsable API feature, DRF simplifies debugging and testing.
 
+For more details, refer to the official [DRF documentation](https://www.django-rest-framework.org/).
+
 ### ✨ Key Features of DRF
 
 - **🔄 Serialization**: Converts complex data types into JSON.
@@ -40,7 +42,7 @@ To install Django and DRF using Poetry, follow these steps:
     poetry add django djangorestframework djangorestframework-simplejwt
     ```
 
-### 🚀 Setting up a Django project with DRF
+## 🚀 Setting up a Django project with DRF
 
 Setting up a new Django project with DRF involves creating a new project, starting an app, configuring settings, and running migrations. Here's a step-by-step guide:
 

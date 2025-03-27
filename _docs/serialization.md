@@ -4,6 +4,12 @@
 
 Serialization is the process of converting complex data types (such as Django models) into JSON or other content types that can be easily shared over the web. DRF provides powerful serializers to transform and validate data efficiently. ✅
 
+For more details, refer to the official [DRF Serialization documentation](https://www.django-rest-framework.org/api-guide/serializers/).
+
+## 📂 Example: `vichar/serializers.py`
+
+Here’s an example of how you can use serializers in a Django project: **[`vichar/serializers.py`](../vichar/serializers.py)**
+
 ## 🔑 Key Features of DRF Serialization
 
 - 📦 **Model Serialization**: Automatically converts Django model instances into JSON.
