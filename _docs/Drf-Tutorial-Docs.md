@@ -36,12 +36,12 @@
    - Implementing Token and JWT authentication
    - Custom authentication classes
 
-6. **[`permissions.md`](#)** - 🛡️ Handling permissions and access control.
+6. **[`permissions.md`](./permissions.md)** - 🛡️ Handling permissions and access control.
    - Built-in permission classes
    - Custom permissions in DRF
    - Object-level permissions
 
-7. **[`pagination.md`](#)** - 📄 Implementing pagination in APIs.
+7. **[`pagination.md`](./pagination.md)** - 📄 Implementing pagination in APIs.
    - Types of pagination (PageNumber, LimitOffset, Cursor)
    - Customizing pagination styles
 
