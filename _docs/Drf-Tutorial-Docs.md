@@ -26,7 +26,7 @@
    - ModelSerializer vs. regular serializers
    - Serializing and deserializing data
 
-4. **[`views.md`](#)** - 👀 Working with views, viewsets, and mixins.
+4. **[`views.md`](./views.md)** - 👀 Working with views, viewsets, and mixins.
    - Function-based views vs. class-based views
    - ViewSets and how they simplify API development
    - Using mixins for reusable API components
