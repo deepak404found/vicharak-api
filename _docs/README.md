@@ -45,7 +45,7 @@
    - Types of pagination (PageNumber, LimitOffset, Cursor)
    - Customizing pagination styles
 
-8. **[`filtering.md`](#)** - 🔍 Filtering, searching, and ordering data.
+8. **[`filtering.md`](./filtering.md)** - 🔍 Filtering, searching, and ordering data.
    - Filtering with DjangoFilterBackend
    - Search and ordering filters
    - Writing custom filters
