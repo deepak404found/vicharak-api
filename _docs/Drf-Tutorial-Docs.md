@@ -31,7 +31,7 @@
    - ViewSets and how they simplify API development
    - Using mixins for reusable API components
 
-5. **[`authentication.md`](#)** - 🔐 Authentication methods (Token, JWT, Session, etc.).
+5. **[`authentication.md`](./authentication.md)** - 🔐 Authentication methods (Token, JWT, Session, etc.).
    - Overview of authentication in DRF
    - Implementing Token and JWT authentication
    - Custom authentication classes
