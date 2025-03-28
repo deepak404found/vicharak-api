@@ -50,7 +50,7 @@
    - Search and ordering filters
    - Writing custom filters
 
-9. **[`throttling.md`](#)** - 🚦 Rate limiting and request throttling.
+<!-- 9. **[`throttling.md`](#)** - 🚦 Rate limiting and request throttling.
    - How throttling works in DRF
    - Configuring throttle rates
    - Custom throttling strategies
@@ -68,7 +68,7 @@
 12. **[`advanced.md`](#)** - 🌟 Advanced topics like nested serializers, API versioning, and custom renderers.
     - Working with nested serializers
     - Implementing API versioning
-    - Creating custom renderers and parsers
+    - Creating custom renderers and parsers -->
 
 Each `.md` file will contain explanations, code examples, and best practices for that topic.
 
