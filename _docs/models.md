@@ -71,15 +71,15 @@ Django provides several relationship types:
 
 Understanding `related_name`:
 
-- **`related_name`**: Allows you to define the name of the reverse relation from the related object back to this one. This is used to access related objects in reverse, such as `user.vichars.all()`.
-- **`related_name` Example**: `user_vichar` in `user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_vichar")`.
-- **`related_name` Usage**: `user.vichars.all()` to get all *Vichars* created by a user.
-- **`related_name` Default**: If not specified, Django uses the lowercase name of the related model.
-- **`related_name` Best Practices**: Use a descriptive name to make the code more readable.
-- **`related_name` Caution**: Avoid using `+` or `-` in `related_name` as it may conflict with query syntax.
-- **`related_name` Limitation**: It must be unique across the entire Django project.
-- **`related_name` Recommendation**: Use plural names for `related_name` to indicate multiple objects.
-- **`related_name` Example**: `related_name="user_vichars"` for a one-to-many relationship.
+- Allows you to define the name of the reverse relation from the related object back to this one. This is used to access related objects in reverse, such as `user.vichars.all()`.
+- **Example**: `user_vichar` in `user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_vichar")`.
+- **Usage**: `user.vichars.all()` to get all *Vichars* created by a user.
+- **Default**: If not specified, Django uses the lowercase name of the related model.
+- **Best Practices**: Use a descriptive name to make the code more readable.
+- **Caution**: Avoid using `+` or `-` in `related_name` as it may conflict with query syntax.
+- **Limitation**: It must be unique across the entire Django project.
+- **Recommendation**: Use plural names for `related_name` to indicate multiple objects.
+- **Example**: `related_name="user_vichars"` for a one-to-many relationship.
 
 ### Understand The relationship between models in Django with the help of the following example
 
