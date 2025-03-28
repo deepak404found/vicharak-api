@@ -15,12 +15,11 @@
    - Installation guide
    - Setting up a Django project with DRF
 
-2. **[`models.md`](./models.md)** - 🏗️ Understanding Django models and their integration with DRF.
-   - What are Django models?
-   - Defining models for your application
-   - Using models with DRF serializers
-   - Querying and managing data with models
-  
+2. **[`models.md`](./models.md)** - 🏗️ Defining Django models and database structure.
+   - Creating Django models
+   - Model relationships (OneToOne, ForeignKey, ManyToMany)
+   - Running and managing migrations
+
 3. **[`serialization.md`](./serialization.md)** - 🔄 Understanding serializers and how to use them.
    - What are serializers?
    - ModelSerializer vs. regular serializers
@@ -50,26 +49,11 @@
    - Search and ordering filters
    - Writing custom filters
 
-<!-- 9. **[`throttling.md`](#)** - 🚦 Rate limiting and request throttling.
-   - How throttling works in DRF
-   - Configuring throttle rates
-   - Custom throttling strategies
+## 🏗 Sample Project
 
-10. **[`testing.md`](#)** - 🧪 Writing tests for DRF APIs.
-    - Testing views and serializers
-    - Using Django’s test framework with DRF
-    - Mocking API requests
-
-11. **[`deployment.md`](#)** - 🚢 Best practices for deploying DRF APIs.
-    - Preparing APIs for production
-    - Handling security concerns
-    - Performance optimization tips
-
-12. **[`advanced.md`](#)** - 🌟 Advanced topics like nested serializers, API versioning, and custom renderers.
-    - Working with nested serializers
-    - Implementing API versioning
-    - Creating custom renderers and parsers -->
+A sample project that includes all these concepts can be found in:
+📌 **[`Vicharak`](../README.md)**
 
 Each `.md` file will contain explanations, code examples, and best practices for that topic.
 
-✨ Stay tuned for detailed tutorials in each section!
+✨ Stay tuned for detailed tutorials in each section! 🚀
