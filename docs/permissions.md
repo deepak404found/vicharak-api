@@ -44,7 +44,7 @@ group.save()
 
 Django provides multiple ways to check permissions in views and templates.
 
-#### 📝 Example: Checking Permissions in Views
+### 📝 Example: Checking Permissions in Views
 
 ```python
 from django.contrib.auth.decorators import permission_required
@@ -104,7 +104,7 @@ class SecureView(APIView):
 
 For more control, define custom permissions.
 
-#### 📝 Example: Creating a Custom Permission
+### 📝 Example: Creating a Custom Permission
 
 ```python
 from rest_framework.permissions import BasePermission
@@ -134,3 +134,5 @@ class MyViewSet(viewsets.ModelViewSet):
 ---
 
 📖 This tutorial covers Django permissions, including built-in permissions, checking permissions, DRF permissions, and custom permissions. Implementing a robust permission system ensures security and proper access control in your application. 🚀
+
+[🔙 Back to Main Docs](./README.md)

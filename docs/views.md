@@ -327,3 +327,5 @@ class VicharDetailView(viewsets.ModelViewSet):
 
 ---
 📖 This tutorial covers the fundamentals of Django views, from function-based to class-based views and API viewsets, with practical examples from Vicharak. Mastering views helps build efficient Django applications.
+
+[🔙 Back to Main Docs](./README.md)

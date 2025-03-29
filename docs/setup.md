@@ -4,7 +4,7 @@ Django Rest Framework (DRF) is an open-source framework for building Web APIs wi
 
 For more details, refer to the official [DRF documentation](https://www.django-rest-framework.org/).
 
-### ✨ Key Features of DRF
+## ✨ Key Features of DRF
 
 - **🔄 Serialization**: Converts complex data types into JSON.
 - **🔐 Authentication & Permissions**: Supports Token, JWT, and custom authentication.
@@ -112,3 +112,5 @@ Setting up a new Django project with DRF involves creating a new project, starti
     ```
 
 🎉 Now, the basic DRF setup with Simple JWT authentication is completed!
+
+[🔙 Back to Main Docs](./README.md)

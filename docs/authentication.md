@@ -209,3 +209,5 @@ class AdminOnlyView(APIView):
 ---
 
 📖 This tutorial covers Django authentication, from user management to authentication backends and securing APIs using DRF. Implementing robust authentication ensures your application remains secure and reliable.
+
+[🔙 Back to Main Docs](./README.md)
