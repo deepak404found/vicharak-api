@@ -48,6 +48,11 @@
    - Filtering with DjangoFilterBackend
    - Search and ordering filters
    - Writing custom filters
+  
+9. **[`throttling.md`](./throttling.md)** - 🚦 Rate limiting and request throttling.
+   - How throttling works in DRF
+   - Configuring throttle rates
+   - Custom throttling strategies
 
 ## 🏗 Sample Project
 
