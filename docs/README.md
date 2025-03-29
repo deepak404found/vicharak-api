@@ -54,6 +54,11 @@
    - Configuring throttle rates
    - Custom throttling strategies
 
+10. **[`deployment.md`](./deployment.md)** - 🚢 Best practices for deploying DRF APIs.
+    - Preparing APIs for production
+    - Handling security concerns
+    - Performance optimization tips
+
 ## 🏗 Sample Project
 
 A sample project that includes all these concepts can be found in:
