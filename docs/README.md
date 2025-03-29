@@ -59,6 +59,11 @@
     - Handling security concerns
     - Performance optimization tips
 
+11. **[`configuration.md`](./configuration.md)** - ⚙️ Configuring DRF settings and options.
+    - Customizing DRF settings
+    - Using environment variables for configuration
+    - Best practices for managing settings
+
 ## 🏗 Sample Project
 
 A sample project that includes all these concepts can be found in:
